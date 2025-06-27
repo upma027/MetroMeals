@@ -1,24 +1,50 @@
-import logo from './logo.svg';
 import './App.css';
+import{
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import Home from './screens/Home';
+import Navbar from './components/Navbar';
+import Login from './components/Login';
+import Signup from './components/Signup';
+
+import MyOder from './screens/MyOder';
+import Cancel from './components/Cancel';
+import Success from './components/Success';
+import { useDispatchCart } from './components/ContextReducer';
+import { useEffect } from 'react';
+
 
 function App() {
+  let dispatch = useDispatchCart();
+
+  useEffect(() => {
+    if (localStorage.getItem("Lastcart") !== null) {
+      dispatch({ type: "Update", data: JSON.parse(localStorage.getItem('Lastcart')) });
+    }
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+
+  <Router>
+     <div>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/menu" element={<Navbar />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/createuser" element={<Signup />} />
+          <Route exact path="/myOrder" element={<MyOder />} />
+          <Route exact path="/success" element={<Success />} />
+          <Route exact path="/cancel" element={<Cancel />} />
+        </Routes>
+
+     </div>
+ 
+  </Router>
+  
+    
   );
 }
 
