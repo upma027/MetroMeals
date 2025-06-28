@@ -27,7 +27,16 @@ export default function Login() {
     setFieldErrors({});
     setSuccess("");
 
-    const json = { success: true, authToken: "dummy-token" };
+    try {
+      const response = await fetch("http://localhost:5000/api/loginuser", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(enteredCandidate)
+      });
+
+      const json = await response.json();
 
       if (json.success) {
         localStorage.setItem("userEmail", enteredCandidate.email);

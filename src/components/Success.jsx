@@ -6,12 +6,28 @@ export default function Success() {
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('Lastcart'));
+    const userEmail = localStorage.getItem('userEmail');
+
+    const storeOrder = async () => {
+      const response = await fetch('http://localhost:5000/api/orderData', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          order_data: data,
+          email: userEmail,
+          Order_date: new Date().toDateString(),
+          name: "Guest" // Replace with actual user if needed
+        }),
+      });
+
+      if (response.ok) {
+        dispatch({ type: 'DROP' });
+        localStorage.removeItem('Lastcart');
+      }
+    };
 
     if (data && data.length > 0) {
-      //  Mock storing order without API
-      console.log("✅ Order would be sent to backend here:", data);
-      dispatch({ type: 'DROP' });
-      localStorage.removeItem('Lastcart');
+      storeOrder();
     }
   }, [dispatch]);
 

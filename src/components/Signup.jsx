@@ -29,7 +29,17 @@ export default function Signup() {
     setFieldErrors({});
     setSuccess("");
 
-    const json = { success: true, authToken: "dummy-token" };
+    try {
+      console.log("Sending data:", candidate);
+      const response = await fetch("http://localhost:5000/api/createuser", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(candidate)
+      });
+
+      const json = await response.json();
 
       if (json.success) {
         localStorage.setItem("userEmail", candidate.email);
@@ -37,8 +47,23 @@ export default function Signup() {
         setSuccess("Account created successfully! Redirecting...");
         setTimeout(() => navigate("/"), 1500);
       } else {
-        setError("Enter Valid Credentials");
-    } 
+        if (json.errors) {
+          const newErrors = {};
+          json.errors.forEach(err => {
+            if (err.param) newErrors[err.param] = err.msg;
+            else setError(err.msg);
+          });
+          setFieldErrors(newErrors);
+        } else if (json.message) {
+          setError(json.message);
+        } else {
+          setError("Enter Valid Credentials");
+        }
+      }
+    } catch (err) {
+      setError("Something went wrong while signing up.");
+      console.error(err);
+    }
   };
 
   return (
