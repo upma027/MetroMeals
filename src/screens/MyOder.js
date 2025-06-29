@@ -6,7 +6,7 @@ export default function MyOrder() {
     const [orderData, setorderData] = useState([])
 
     const fetchMyOrder = async () => {
-        await fetch("http://localhost:5000/api/myOrder", {
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/myOrder`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
