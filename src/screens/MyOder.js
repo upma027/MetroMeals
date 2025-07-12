@@ -71,7 +71,7 @@ export default function MyOrder() {
                                         
                                     }
                 </React.Fragment>
-                )) : <h1 key={index}>No  Order!!</h1>
+                )) : <h1 key={index}>No Order!!</h1>
                 )) : <h1>No Order !!</h1>}
             </div>
         </div>
