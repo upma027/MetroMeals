@@ -126,7 +126,7 @@ export default function Signup() {
           </div>
 
           <button type="submit" className="btn btn-success mx-2">Submit</button>
-          <Link to="/login" className='btn btn-primary mx-2'>Already have an Account</Link>
+          <Link to="/login" className='btn btn-primary mx-2'>Already have an User Account</Link>
         </form>
       </div>
     </>
