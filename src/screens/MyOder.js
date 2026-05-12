@@ -35,7 +35,7 @@ export default function MyOrder() {
 
             <div className='container'>
                 <div className='row'>
-                    {Array(orderData).length > 0 ? Array(orderData).map((data, index) => (
+                    {orderData.length > 0 ? orderData.map((data, index) => (
                         data.order_data ?
                             data.order_data.slice(0).reverse().map((item, idx) => (
                                 <React.Fragment key={`${index}-${idx}`}>

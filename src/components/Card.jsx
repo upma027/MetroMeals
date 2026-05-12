@@ -22,7 +22,7 @@ export default function Card(props) {
 
   useEffect(() => {
     if (localStorage.getItem("Lastcart") !== null) {
-      dispatch({ type: "Update", data: JSON.parse(localStorage.getItem('Lastcart')) });
+      dispatch({ type: "UPDATE", data: JSON.parse(localStorage.getItem('Lastcart')) });
     }
   }, [])
 

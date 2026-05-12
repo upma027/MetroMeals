@@ -28,9 +28,9 @@ export default function Home() {
 
   useEffect(() => {
     if (localStorage.getItem("Lastcart") !== null) {
-      dispatch({ type: "Update", data: JSON.parse(localStorage.getItem('Lastcart')) });
+      dispatch({ type: "UPDATE", data: JSON.parse(localStorage.getItem('Lastcart')) });
     }
-  }, [localStorage.getItem("Lastcart")])
+  }, [])
 
 
   return (
