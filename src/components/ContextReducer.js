@@ -32,7 +32,7 @@ const reducer = (state, action) => {
       return [];
 
     default:
-      console.error("❌ Reducer Error: Invalid action type", action.type);
+      console.error("❌❌  Reducer Error: Invalid action type", action.type);
       return state;
   }
 };
