@@ -4,11 +4,11 @@ const port = process.env.PORT || 5000;
 const mongoDB = require("./db");
 const cors = require("cors")
 
-// app.use(cors());
-app.use(cors({
-  origin: "https://metro-meals.vercel.app", // Replace with your frontend domain
-  credentials: true
-}));
+app.use(cors());
+// app.use(cors({
+//   origin: "https://metro-meals.vercel.app", // Replace with your frontend domain
+//   credentials: true
+// }));
 
 app.use(express.json());
 

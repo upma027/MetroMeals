@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Navbar from './Navbar';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
 export default function Signup() {
 
@@ -10,7 +10,7 @@ export default function Signup() {
     name: "",
     email: "",
     password: "",
-    location: ""
+    location: "",
   });
 
   const [error, setError] = useState("");
@@ -20,7 +20,7 @@ export default function Signup() {
   const handleChange = (e) => {
     setCandidate({
       ...candidate,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -39,9 +39,9 @@ export default function Signup() {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(candidate)
+          body: JSON.stringify(candidate),
         }
       );
 
@@ -62,11 +62,8 @@ export default function Signup() {
 
       } else {
 
-        if (json.message) {
-          setError(json.message);
-        } else {
-          setError("Signup failed");
-        }
+        setError(json.message || "Signup failed");
+
       }
 
     } catch (err) {
