@@ -6,75 +6,178 @@ export default function MyOrder() {
     const [orderData, setorderData] = useState([])
 
     const fetchMyOrder = async () => {
-        await fetch(`https://metromeals.onrender.com/api/myOrder`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: localStorage.getItem('userEmail')
-            })
-        }).then(async (res) => {
-            let response = await res.json();
-            setorderData(response?.orderData || [])
-        }).catch(error => {
-            // console.log(error);
-        })
+
+        try {
+
+            const response = await fetch(
+                `https://metromeals.onrender.com/api/myOrder`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: localStorage.getItem('userEmail')
+                    })
+                }
+            );
+
+            const res = await response.json();
+
+            setorderData(res?.orderData?.order_data || []);
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+
     }
 
-
     useEffect(() => {
+
         fetchMyOrder()
+
     }, [])
 
     return (
+
         <div>
-            <div>
-                <Navbar />
-            </div>
+
+            <Navbar />
 
             <div className='container'>
+
                 <div className='row'>
-                    {orderData.length > 0 ? orderData.map((data, index) => (
-                        data.order_data ?
-                            data.order_data.slice(0).reverse().map((item, idx) => (
-                                <React.Fragment key={`${index}-${idx}`}>
-                                       { item.map((arrayData, arrayIndex) => (
-                                        <>
-                                               {arrayData?.Order_date?.length>0 ?
-                                            < div className = 'col-12' key = {`${index}-${idx}-${arrayIndex}`}>
-                                                <div className='m-auto mt-5 text-white'>
-                                                     {arrayData.Order_date}
-                                                   <hr/>
-                                                   </div>
-                                               </div> :
-                                                   <div div className='col-12 col-md-6 col-lg-3' key={`${index}-${idx}-${arrayIndex}`}>
-                                    <div className="card mt-3" style={{ width: "20rem", maxHeight: "360px" }}>
-                                        <img src={arrayData.img} className="card-img-top" alt="..." style={{ height: "120px", objectFit: "fill" }} />
-                                        <div className="card-body">
-                                            <h5 className="card-title">{arrayData.name}</h5>
-                                            <div className='container w-100 p-0' style={{ height: "38px" }}>
-                                                <span className='m-1'>{arrayData.qty}</span>
-                                                <span className='m-1'>{arrayData.size}</span>
-                                                <span className='m-1'>{data.Order_date}</span>
-                                                <div className='d-inline ms-2 h-100 w-20 fs-5'>
-                                                    ₹{arrayData.price}/-
-                                                </div>
-                                            </div>
-                                        </div>
+
+                    {
+                        orderData.length > 0 ? (
+
+                            orderData
+                                .slice(0)
+                                .reverse()
+                                .map((item, index) => (
+
+                                    <div key={index}>
+
+                                        {
+                                            item.map((data, i) => (
+
+                                                data.Order_date ? (
+
+                                                    <div
+                                                        className='col-12'
+                                                        key={i}
+                                                    >
+
+                                                        <div className='m-auto mt-5 text-white'>
+
+                                                            <h4>
+                                                                Order Date:
+                                                            </h4>
+
+                                                            <h5>
+                                                                {data.Order_date}
+                                                            </h5>
+
+                                                            <hr />
+
+                                                        </div>
+
+                                                    </div>
+
+                                                ) : (
+
+                                                    <div
+                                                        className='col-12 col-md-6 col-lg-3 d-inline-flex'
+                                                        key={i}
+                                                    >
+
+                                                        <div
+                                                            className="card mt-3"
+                                                            style={{
+                                                                width: "18rem",
+                                                                maxHeight: "360px"
+                                                            }}
+                                                        >
+
+                                                            <img
+                                                                src={data.img}
+                                                                className="card-img-top"
+                                                                alt="food"
+                                                                style={{
+                                                                    height: "120px",
+                                                                    objectFit: "cover"
+                                                                }}
+                                                            />
+
+                                                            <div className="card-body">
+
+                                                                <h5 className="card-title">
+
+                                                                    {data.name}
+
+                                                                </h5>
+
+                                                                <div
+                                                                    className='container w-100 p-0'
+                                                                    style={{ height: "38px" }}
+                                                                >
+
+                                                                    <span className='m-1'>
+
+                                                                        Qty: {data.qty}
+
+                                                                    </span>
+
+                                                                    <span className='m-1'>
+
+                                                                        Size: {data.size}
+
+                                                                    </span>
+
+                                                                    <div className='d-inline ms-2 h-100 w-20 fs-5'>
+
+                                                                        ₹{data.price}/-
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                )
+
+                                            ))
+                                        }
+
                                     </div>
-                                    </div>
-                                               }
-                                
-                                    </>
-                            ))
-                                        
-                                    }
-                </React.Fragment>
-                )) : <h1 key={index}>No Order!!</h1>
-                )) : <h1>No Order !!</h1>}
+
+                                ))
+
+                        ) : (
+
+                            <div className='text-center text-white mt-5'>
+
+                                <h1>
+                                    No Orders Found 😔
+                                </h1>
+
+                            </div>
+
+                        )
+                    }
+
+                </div>
+
             </div>
+
         </div>
-        </div >
+
     )
+
 }
