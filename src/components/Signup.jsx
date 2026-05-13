@@ -35,7 +35,7 @@ export default function Signup() {
     try {
 
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/api/createuser`,
+        `https://metromeals.onrender.com/api/createuser`,
         {
           method: "POST",
           headers: {

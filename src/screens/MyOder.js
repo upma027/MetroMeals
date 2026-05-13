@@ -6,7 +6,7 @@ export default function MyOrder() {
     const [orderData, setorderData] = useState([])
 
     const fetchMyOrder = async () => {
-        await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/myOrder`, {
+        await fetch(`https://metromeals.onrender.com/api/myOrder`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

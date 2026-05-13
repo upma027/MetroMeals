@@ -28,7 +28,7 @@ export default function Login() {
     setSuccess("");
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/loginuser`, {
+      const response = await fetch(`https://metromeals.onrender.com/api/loginuser`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'

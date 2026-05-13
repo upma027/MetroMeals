@@ -17,7 +17,7 @@ export default function Cart() {
 
   const handleCheckout = async () => {
     const userEmail = localStorage.getItem("userEmail");
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/orderData`, {
+    const response = await fetch(`https://metromeals.onrender.com/api/orderData`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'

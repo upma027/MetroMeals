@@ -17,13 +17,11 @@ export default function Home() {
     try {
 
       console.log("Loading Started");
-      console.log(process.env.REACT_APP_BACKEND_URL);
 
       let response = await fetch(
-        // `${process.env.REACT_APP_BACKEND_URL}/api/foodData`,
         `https://metromeals.onrender.com/api/foodData`,
         {
-          method: "POST",
+          method: "GET",
           headers: {
             'Content-Type': 'application/json'
           }
